@@ -1,10 +1,13 @@
 // App.js has the root component of the react app because every view and component are handled with hierarchy in React.
 // Where <App /> is the top most component in hierarchy. This gives you feel that you maintain hierarchy in your code starting from App.js.
 // Import child components at the top
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Users from "./components/users/Users";
 import Search from "./components/users/Search";
 import Navbar from "./components/layouts/Navbar";
+import Alert from "./components/layouts/Alert";
+import About from "./components/pages/About";
 import axios from "axios";
 import "./App.css";
 import { tsConstructorType } from "@babel/types";
@@ -14,7 +17,8 @@ class App extends Component {
   //state is the data you'll be using
   state = {
     users: [],
-    loading: false //loading for when data hasnt been fetched
+    loading: false, //loading for when data hasnt been fetched
+    alert: null
   };
   //what you want to run when your component loads(data, api calls)
   async componentDidMount() {
@@ -33,9 +37,22 @@ class App extends Component {
     ); // go fetch our data at this api
     this.setState({ users: res.data.items, loading: false });
   };
+
+  //Clear users from state
+  clearUsers = () => this.setState({ users: [], loading: false });
+
+  //set Alert
+  setAlert = (msg, type) => {
+    this.setState({ alert: { msg, type } });
+
+    setTimeout(() => this.setState({ alert: null }), 5000);
+  };
+
   //render is a method("arg") to the class Component. It's what renders what your UI/data
   render() {
     //functions and variables are declared at the top.
+    // don't need to use this.state
+    const { users, loading } = this.state;
 
     return (
       // What you are returning.
@@ -44,14 +61,32 @@ class App extends Component {
       // Or have Fragments
       // can pass props into components from here props is just a piece of data
       //
-
-      <div className='App'>
-        <Navbar />
-        <div className='container'>
-          <Search searchUsers={this.searchUsers} />
-          <Users loading={this.state.loading} users={this.state.users} />
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <div className='container'>
+            <Alert alert={this.state.alert} />
+            <Switch>
+              <Route
+                exact
+                path='/'
+                render={props => (
+                  <Fragment>
+                    <Search
+                      searchUsers={this.searchUsers}
+                      clearUsers={this.clearUsers}
+                      showClear={users.length > 0 ? true : false}
+                      setAlert={this.setAlert}
+                    />
+                    <Users loading={loading} users={users} />
+                  </Fragment>
+                )}
+              />
+              <Route exact path='/about' component={About} />
+            </Switch>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }

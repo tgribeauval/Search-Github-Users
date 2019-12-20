@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ icon, title }) => {
   // props are arguments you throw to the Navbar component.
@@ -11,11 +12,21 @@ const Navbar = ({ icon, title }) => {
       <h1>
         <i className={icon} /> {title}
       </h1>
+      <ul>
+        <li>
+          <Link className='test' to='/'>
+            Home
+          </Link>
+          <Link className='test' to='/about'>
+            About
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };
 
-// static means this data will be rendered if no data coming in
+//means this data will be rendered if no data coming in
 Navbar.defaultProps = {
   title: "Github Finder",
   icon: "fab fa-github"
