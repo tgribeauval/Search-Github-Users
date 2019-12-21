@@ -8,18 +8,14 @@ const Navbar = ({ icon, title }) => {
   // props are arguments you throw to the Navbar component.
 
   return (
-    <nav className='nabar bg-primary'>
+    <nav className='navbar bg-primary'>
       <h1>
         <i className={icon} /> {title}
       </h1>
       <ul>
         <li>
-          <Link className='test' to='/'>
-            Home
-          </Link>
-          <Link className='test' to='/about'>
-            About
-          </Link>
+          <Link to='/'>Home</Link>
+          <Link to='/about'>About</Link>
         </li>
       </ul>
     </nav>

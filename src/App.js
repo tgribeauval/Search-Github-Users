@@ -3,8 +3,8 @@
 // Import child components at the top
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Users from "./components/users/Users";
-import Search from "./components/users/Search";
+import Users from "./components/users/Users"; // Start: go to line 19 and line 20, return: go to line 81
+import Search from "./components/users/Search"; //Start: line 75,
 import Navbar from "./components/layouts/Navbar";
 import Alert from "./components/layouts/Alert";
 import About from "./components/pages/About";
@@ -16,8 +16,8 @@ import { tsConstructorType } from "@babel/types";
 class App extends Component {
   //state is the data you'll be using
   state = {
-    users: [],
-    loading: false, //loading for when data hasnt been fetched
+    users: [], // go to line 29
+    loading: false, //loading for when data hasnt been fetched, go to line 25
     alert: null
   };
   //what you want to run when your component loads(data, api calls)
@@ -26,7 +26,7 @@ class App extends Component {
     const res = await axios.get(
       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}` // API KEYS from .env.local file.
     ); // go fetch our data at this api
-    this.setState({ users: res.data, loading: false }); //when data is received, do this with it. Reset state with new data
+    this.setState({ users: res.data, loading: false }); //when data is received, do this with it. Reset state with new data, go to line 81
   }
 
   //search github users
@@ -60,7 +60,6 @@ class App extends Component {
       //functions can be declared in brackets {loading ? {name:x} }
       // Or have Fragments
       // can pass props into components from here props is just a piece of data
-      //
       <Router>
         <div className='App'>
           <Navbar />
@@ -72,13 +71,14 @@ class App extends Component {
                 path='/'
                 render={props => (
                   <Fragment>
-                    <Search
+                    <Search //go to Search.js
                       searchUsers={this.searchUsers}
                       clearUsers={this.clearUsers}
-                      showClear={users.length > 0 ? true : false}
+                      showClear={users.length > 0 ? true : false} //depends on line 19
                       setAlert={this.setAlert}
                     />
                     <Users loading={loading} users={users} />
+                    {/* Start: go to Users.js, return: User/UserItem component ends here. */}
                   </Fragment>
                 )}
               />
