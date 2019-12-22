@@ -5,12 +5,13 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ icon, title }) => {
+  //line 26
   // props are arguments you throw to the Navbar component.
 
   return (
     <nav className='navbar bg-primary'>
       <h1>
-        <i className={icon} /> {title}
+        <i className={icon} /> {title} {/* line 37 */}
       </h1>
       <ul>
         <li>
@@ -24,8 +25,8 @@ const Navbar = ({ icon, title }) => {
 
 //means this data will be rendered if no data coming in
 Navbar.defaultProps = {
-  title: "Github Finder",
-  icon: "fab fa-github"
+  title: "Github Finder", //line 13
+  icon: "fab fa-github" //line 13
 };
 //propType is for data validating (string, array, function), good!
 Navbar.propTypes = {
@@ -33,5 +34,4 @@ Navbar.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-// to export your component to the main component
-export default Navbar;
+export default Navbar; // back to App.js, line

@@ -19,7 +19,7 @@ export class Search extends Component {
     if (this.state.text === "") {
       //line 24
       //setAlert method for alerts in React
-      this.props.setAlert("Please enter username", "light");
+      this.props.setAlert("Please enter username", "light"); //back to App.js, line 45
     } else {
       this.props.searchUsers(this.state.text); //go back to App.js, EXIT!!
       this.setState({ text: "" }); //reset search field to empty after search

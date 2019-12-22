@@ -13,9 +13,7 @@ const Users = ({ users, loading }) => {
   } else {
     return (
       <div style={userStyle}>
-        {users.map((
-          user // go to line 20
-        ) => (
+        {users.map(user => (
           // every list of props (multiple version of your component) need to have unique key
           // passing entire user object to UserItem child component
           <UserItem key={user.id} user={user} /> // go to UserItem.js
