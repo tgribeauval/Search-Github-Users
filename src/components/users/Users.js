@@ -1,31 +1,26 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import UserItem from "./UserItem"; //go to line 36
 import Spinner from "../layouts/Spinner";
-import PropTypes from "prop-types";
-import App from "../../App";
+import GithubContext from "../../context/github/githubContext";
 
-const Users = ({ users, loading }) => {
-  //go to line 8 (loading) and line 15 (users)
+const Users = () => {
+  const githubContext = useContext(GithubContext);
+
+  const { loading, users } = githubContext;
+
   if (loading) {
-    //go to line 11
-    //Spinner child component to Users component
-    return <Spinner />; // go to Spinner.js
+    return <Spinner />;
   } else {
     return (
       <div style={userStyle}>
         {users.map(user => (
-          // every list of props (multiple version of your component) need to have unique key
-          // passing entire user object to UserItem child component
           <UserItem key={user.id} user={user} /> // go to UserItem.js
         ))}
       </div>
     );
   }
 };
-Users.propTypes = {
-  users: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
-};
+
 const userStyle = {
   display: "grid",
   gridTemplateColumns: "repeat(3, 1fr)",
